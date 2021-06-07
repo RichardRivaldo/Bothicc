@@ -1,4 +1,5 @@
 import numpy as np
+from math import inf
 
 
 class tic_tac_toe:
@@ -19,9 +20,18 @@ class tic_tac_toe:
             print("", i, end=" ")
         print("")
 
+    def valid_move(self, i, j):
+        return (
+            i >= 0
+            and i < len(self.board)
+            and j >= 0
+            and j < len(self.board)
+            and self.board[i][j] == "_"
+        )
+
     def make_move(self, i, j):
-        if self.board[i][j] != "_" or i > len(self.board) or j > len(self.board):
-            print("Invalid Move!")
+        if not self.valid_move(i, j):
+            print("[Invalid Move!]")
         else:
             if self.bot_turn:
                 (self.board)[i][j] = "X"
@@ -70,10 +80,14 @@ class tic_tac_toe:
         return 0
 
     def is_finished(self):
+        # Check every winning possibilities in the board
         row_eval = self.row_won()
         col_eval = self.col_won()
         diag_eval = self.diagonal_won()
 
+        # Return finish status and player property to decide who wins the game
+        # Finish status is True if the game is over
+        # Player property is 1 for Bothicc (X), -1 for Human (O), and 0 for Tie
         if row_eval == 1 or col_eval == 1 or diag_eval == 1:
             return (True, 1)
         elif row_eval == -1 or col_eval == -1 or diag_eval == -1:
@@ -83,6 +97,102 @@ class tic_tac_toe:
         else:
             return (False, 0)
 
+    def reset_board(self, i, j):
+        self.board[i][j] = "_"
+
+    def get_possible_moves(self):
+        possible_moves = []
+        for i in range(len(self.board)):
+            for j in range(len(self.board)):
+                if self.valid_move(i, j):
+                    possible_moves.append((i, j))
+        return possible_moves
+
+    def maximizer(self, alpha, beta):
+        # Initialize the variables
+        max_value = -inf
+        move_x = -1
+        move_y = -1
+
+        # Get the finish status and player property
+        finished, player_won = self.is_finished()
+
+        # Check the status
+        if finished:
+            if player_won == 1:
+                return (10, 0, 0)
+            elif player_won == -1:
+                return (-10, 0, 0)
+            else:
+                return (0, 0, 0)
+
+        for i in range(len(self.board)):
+            for j in range(len(self.board)):
+                if self.valid_move(i, j):
+                    self.board[i][j] = "X"
+                    (min_value, dummy_x, dummy_y) = self.minimizer(alpha, beta)
+                    if min_value > max_value:
+                        max_value = min_value
+                        move_x, move_y = i, j
+                    self.reset_board(i, j)
+
+                    if max_value >= beta:
+                        return (max_value, move_x, move_y)
+
+                    if max_value > alpha:
+                        alpha = max_value
+
+        return (max_value, move_x, move_y)
+
+    def minimizer(self, alpha, beta):
+        # Initialize the variables
+        min_value = inf
+        move_x = -1
+        move_y = -1
+
+        # Get the finish status and player property
+        finished, player_won = self.is_finished()
+
+        # Check the status
+        if finished:
+            if player_won == 1:
+                return (10, 0, 0)
+            elif player_won == -1:
+                return (-10, 0, 0)
+            else:
+                return (0, 0, 0)
+
+        for i in range(len(self.board)):
+            for j in range(len(self.board)):
+                if self.valid_move(i, j):
+                    self.board[i][j] = "O"
+                    (max_value, dummy_x, dummy_y) = self.maximizer(alpha, beta)
+                    if min_value > max_value:
+                        min_value = max_value
+                        move_x, move_y = i, j
+                    self.reset_board(i, j)
+
+                    if min_value <= alpha:
+                        return (min_value, move_x, move_y)
+                    if min_value < beta:
+                        beta = min_value
+
+        return (min_value, move_x, move_y)
+
+    def move_by_minimax(self, alpha=-inf, beta=inf):
+        (max_value, move_x, move_y) = self.maximizer(alpha, beta)
+        self.make_move(move_x, move_y)
+
+    def retry(self):
+        print("[Wanna try again, LOSER?]")
+        choice = input("Enter anything to continue, NO to quit and go suicide.\n")
+        if choice.lower() != "no":
+            self.bot_turn = False
+            self.board = np.full((3, 3), "_")
+            self.play()
+        else:
+            print("\n[Now now, don't cry.]")
+
     def play(self):
         print("Welcome to the deepest hell of TicTacToe")
         print("The thicc demon, Bothicc, will be your opponent!")
@@ -90,22 +200,30 @@ class tic_tac_toe:
         finished, player = self.is_finished()
 
         while not finished:
-            tic_tac_toe.print_board()
-
-            i = int(input("Enter i: "))
-            j = int(input("Enter j: "))
-            self.make_move(i, j)
+            self.print_board()
+            print("")
+            if self.bot_turn:
+                print("[BEHOLD, PEASANT!]")
+                self.move_by_minimax()
+            else:
+                print("[MAKE YOUR MOVE!]")
+                try:
+                    i = int(input("Enter row index: "))
+                    j = int(input("Enter column index: "))
+                    self.make_move(i, j)
+                except ValueError:
+                    print("\n[Can't you differentiate number and literals!?]\n")
             finished, player = self.is_finished()
 
-        tic_tac_toe.print_board()
+        self.print_board()
         if player == 1:
-            print("Bothicc is superior!")
+            print("\n[Bothicc is superior!]\n")
         elif player == -1:
-            print("You're just lucky!")
+            print("\n[You're just lucky!]\n")
         else:
-            print("Bothicc is still superior!")
+            print("\n[Bothicc is still superior!]\n")
+        self.retry()
 
 
 if __name__ == "__main__":
-    tic_tac_toe = tic_tac_toe()
-    tic_tac_toe.play()
+    tic_tac_toe = tic_tac_toe().play()
