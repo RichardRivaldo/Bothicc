@@ -145,6 +145,7 @@ class tic_tac_toe:
         finished, player_won = self.is_finished()
 
         # Check whose the game is in advantage of
+        # Evaluation Function
         if finished:
             if player_won == 1:
                 return (10, 0, 0)
@@ -189,6 +190,7 @@ class tic_tac_toe:
         finished, player_won = self.is_finished()
 
         # Check whose the game is in advantage of
+        # Evaluation Function
         if finished:
             if player_won == 1:
                 return (10, 0, 0)
