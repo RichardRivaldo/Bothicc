@@ -171,10 +171,9 @@ class tic_tac_toe:
             self.reset_board(i, j)
 
             # Prune the check with Alpha-Beta Pruning if possible
-            if max_value >= beta:
-                return (max_value, move_x, move_y)
-            if max_value > alpha:
-                alpha = max_value
+            alpha = max(alpha, max_value)
+            if alpha >= beta:
+                return (alpha, move_x, move_y)
 
         return (max_value, move_x, move_y)
 
@@ -216,10 +215,9 @@ class tic_tac_toe:
             self.reset_board(i, j)
 
             # Prune the check with Alpha-Beta Pruning if possible
-            if min_value <= alpha:
-                return (min_value, move_x, move_y)
-            if min_value < beta:
-                beta = min_value
+            beta = min(beta, min_value)
+            if beta <= alpha:
+                return (beta, move_x, move_y)
 
         return (min_value, move_x, move_y)
 
