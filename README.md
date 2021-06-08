@@ -15,7 +15,7 @@ FIGHT AND BE VICTORIOUS, SOLDIER!
 ### Guide
 
 -   What you need to challenge `Bothicc` is a weapon called `Python Environment`. Nothing less, nothing more.
--   Go to your `Terminal` or `Command Prompt` and register yourself with the command `python bothicc.py`.
+-   Go to where `Bothicc` is through `Terminal` or `Command Prompt` woth the `cd <bothicc_directory>` call and register yourself with the command `python bothicc.py`.
 -   `Bothicc` will heed your call and gladly end your life!
 -   Who goes first? Depends on `Bothicc's Mood`. Well, it is a `she` after all!
 
