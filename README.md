@@ -32,9 +32,9 @@ FIGHT AND BE VICTORIOUS, SOLDIER!
 ### References
 
 -   [How to Make Your Tic Tac Toe Game Unbeatable by Using the Minimax Algorithm by Ahmad Abdolsaheb](https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/)
+-   [Mini-Max Algorithm in Artificial Intelligence](https://www.javatpoint.com/mini-max-algorithm-in-ai)
 -   [Minimax Algorithm in Game Theory | Set 1 (Introduction) by Akshay L. Aradhya](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-1-introduction/)
 -   [Minimax Algorithm in Game Theory | Set 3 (Tic-Tac-Toe AI – Finding optimal move) by Akshay L. Aradhya](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-3-tic-tac-toe-ai-finding-optimal-move/)
 -   [Minimax Algorithm in Game Theory | Set 4 (Alpha-Beta Pruning) by Akshay L. Aradhya](https://www.geeksforgeeks.org/minimax-algorithm-in-game-theory-set-4-alpha-beta-pruning/)
--   [Mini-Max Algorithm in Artificial Intelligence](https://www.javatpoint.com/mini-max-algorithm-in-ai)
 -   [Minimax with Alpha-Beta Pruning in Python by Mina Krivokuca](https://stackabuse.com/minimax-and-alpha-beta-pruning-in-python)
 -   [Tic Tac Toe: Understanding the Minimax Algorithm by Jason Fox](https://www.neverstopbuilding.com/blog/minimax)
