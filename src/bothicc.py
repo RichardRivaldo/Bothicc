@@ -50,7 +50,7 @@ class tic_tac_toe:
                 (self.board)[i][j] = "X"
                 self.bot_turn = False
             else:
-                (self.board)[i][j] = "O"
+                (self.board)[i][j] = "O" vovovov
                 self.bot_turn = True
 
     # Check if a row is already won by a player
